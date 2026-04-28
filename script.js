@@ -35,7 +35,7 @@ const musicData = [
 const player = document.getElementById("player");
 const audio = document.getElementById("audio");
 
-const container = document.getElementById("music-container"); // old row
+const container = document.getElementById("music-container"); // ⭐ OLD ROW
 const recentContainer = document.getElementById("recent-container");
 const trendingContainer = document.getElementById("trending-container");
 const newContainer = document.getElementById("new-container");
@@ -96,6 +96,7 @@ function playSong(song) {
 
   img.onload = () => {
     const color = getAverageColor(img);
+
     document.querySelectorAll(".equalizer span").forEach(bar => {
       bar.style.background = color;
     });
@@ -137,11 +138,14 @@ function createCard(song) {
 
 
 // 📦 RENDER SONGS
+
 musicData.forEach((song, index) => {
   const card = createCard(song);
 
+  // ⭐ OLD STYLE ROW (ALL SONGS)
   if (container) container.appendChild(card.cloneNode(true));
 
+  // 🎧 SECTIONS
   if (index < 4) recentContainer.appendChild(card);
   else if (index < 8) trendingContainer.appendChild(card);
   else newContainer.appendChild(card);
@@ -172,26 +176,20 @@ document.getElementById("mini-play").onclick = () => {
 audio.addEventListener("play", () => {
   equalizer.style.opacity = "1";
 });
+
 audio.addEventListener("pause", () => {
   equalizer.style.opacity = "0.3";
 });
 
 
-// ⚡ LOADER + INTRO FIX (MAIN CHANGE)
+// ⚡ LOADER
 window.addEventListener("load", () => {
   const loader = document.getElementById("loader");
-  const intro = document.getElementById("logo-intro");
 
-  // hide loader
   setTimeout(() => {
     loader.classList.add("hidden");
     document.body.classList.add("loaded");
-  }, 2000);
-
-  // hide intro AFTER loader
-  setTimeout(() => {
-    intro.classList.add("hide");
-  }, 4000);
+  }, 2500);
 });
 
 
@@ -225,3 +223,8 @@ function draw() {
 }
 
 draw();
+const intro = document.getElementById("logo-intro");
+
+setTimeout(() => {
+  intro.classList.add("hide");
+}, 2200);

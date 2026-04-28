@@ -2,39 +2,22 @@
 <html>
 <head>
   <title>Resonance</title>
-
-  <!-- ✅ MUST be inside head -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- 🌌 PARTICLES BACKGROUND -->
 <canvas id="particles"></canvas>
 
-<!-- ⚡ LOADING SCREEN -->
+<!-- ⚡ LOADER -->
 <div id="loader">
   <div class="logo">Resonance</div>
-  <div class="loader-content">
-    <div class="logo">🎵 Music Vibes</div>
-
-    <div class="loader-bar">
-      <div class="loader-progress"></div>
-    </div>
-  </div>
 </div>
+
+<!-- 🎬 LOGO INTRO -->
 <div id="logo-intro">
   <div class="logo-anim">Resonance</div>
-</div>
-
-<!-- 🚀 BOOT SCREEN -->
-<div id="boot-screen">
-  <div class="boot-content">
-    <div class="logo"></div>
-    <h1 class="boot-text">Resonance</h1>
-  </div>
 </div>
 
 <!-- 🎧 MINI PLAYER -->
@@ -44,23 +27,20 @@
     <h4 id="mini-title"></h4>
     <p id="mini-artist"></p>
   </div>
-
   <button id="mini-play">⏯</button>
 </div>
 
-<!-- 🎧 Recently Played -->
+<!-- 🎧 SECTIONS -->
 <div class="section">
   <h2>Recently Played</h2>
   <div class="row" id="recent-container"></div>
 </div>
 
-<!-- 🔥 Trending -->
 <div class="section">
   <h2>Pop goes the Music!</h2>
   <div class="row" id="trending-container"></div>
 </div>
 
-<!-- 🆕 New Releases -->
 <div class="section">
   <h2>Adrenaline Action</h2>
   <div class="row" id="new-container"></div>
@@ -70,33 +50,20 @@
 <div class="news-section">
   <h2>📰 Latest News</h2>
 
-  <<div class="news-card">
-
-  <div class="news-content">
-    <h3>Drake Announces “Iceman” Album</h3>
-
-    <p>
-      Drake has officially confirmed his upcoming album <strong>Iceman</strong>, set to release on May 15, 2026.
-    </p>
-
-    <p>
-      The album includes tracks like “What Did I Miss?”, “Which One”, and “Dog House”.
-    </p>
-
-    <p class="news-highlight">
-      The rollout has already gone viral.
-    </p>
+  <div class="news-card">
+    <div class="news-content">
+      <h3>Drake Announces “Iceman” Album</h3>
+      <p>Album drops May 15, 2026.</p>
+      <p class="news-highlight">Already going viral.</p>
+    </div>
+    <img src="images/iceman.jpg" class="news-img">
   </div>
-
-  <img src="images/iceman.jpg" class="news-img">
-
 </div>
 
-<!--  FULLSCREEN PLAYER -->
+<!-- 🎧 PLAYER -->
 <div id="player" class="hidden">
   <div class="player-content">
     <span id="close">✖</span>
-
     <img id="player-img">
     <h2 id="player-title"></h2>
     <p id="player-artist"></p>
@@ -111,6 +78,5 @@
 </div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
