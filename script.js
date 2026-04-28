@@ -1,13 +1,13 @@
 // 🎵 DATA
 const musicData = [
-  { name: "One Dance", artist: "Drake", album: "Views", img: "images/vv.jpg", audio: "audio/Shut it down.mp3" },
-  { name: "Shut It Down", artist: "Drake, ft. The Dream", album: "Thank Me Later", img: "images/tml.jpg", audio: "" },
+  { name: "One Dance", artist: "Drake", album: "Views", img: "images/vv.jpg", audio: "audio/One Dance.mpeg.wav" },
+  { name: "Shut It Down", artist: "Drake, ft. The Dream", album: "Thank Me Later", img: "images/tml.jpg", audio: "audio/Shut it down.mp3" },
 
   { name: "TV Off", artist: "Kendrick Lamar", album: "GNX", img: "images/download.jpg", audio: "audio/TV Off.mpeg.wav" },
   { name: "Luther", artist: "Kendrick Lamar, ft. SZA", album: "GNX", img: "images/download.jpg", audio: "audio/Luther.mpeg.wav" },
 
   { name: "Starboy", artist: "The Weeknd, ft. Daft Punk", album: "Starboy",img: "images/sar.jpg", audio: "audio/Wekend.mp3" },
-  { name: "Given Up On Me", artist: "The Weeknd", album: "Hurry Up Tomorrow", img: "images/hut.jpg", audio: "audio/Give.mp3" },
+  { name: "Given Up On Me", artist: "The Weeknd", album: "Hurry Up Tomorrow", img: "images/hut.jpg", audio: "audio/Giv.mp3" },
 
   { name: "Too Little Too Late", artist: "Laufey", album: "Bewitched", img: "images/be.jpg", audio: "audio/Too Little Too Late.mpeg.wav" },
   { name: "From The Start", artist: "Laufey", album: "Bewitched", img: "images/be.jpg", audio: "audio/From The Start.mpeg.wav" },
@@ -136,4 +136,14 @@ audio.addEventListener("play", () => {
 
 audio.addEventListener("pause", () => {
   equalizer.style.opacity = "0.3";
+});
+// ⚡ LOADING + BOOT SEQUENCE
+window.addEventListener("load", () => {
+  const loader = document.getElementById("loader");
+
+  setTimeout(() => {
+    loader.classList.add("hidden");
+
+    document.body.classList.add("loaded");
+  }, 2500); // matches loading bar
 });
