@@ -1,561 +1,94 @@
-/* 🔥 Logo */
+/* 🔥 LOGO (FINAL CLEAN VERSION) */
 .logo {
-  font-size: 60px;
-  transform: scale(0.3);
+  font-family: 'Orbitron', 'Segoe UI', sans-serif;
+  font-size: 56px;
+  letter-spacing: 4px;
+
+  background: linear-gradient(90deg, #4f7bff, #9f5cff, #4f7bff);
+  background-size: 200% auto;
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow:
+    0 0 10px rgba(79,123,255,0.6),
+    0 0 20px rgba(159,92,255,0.5),
+    0 0 40px rgba(79,123,255,0.4);
+
   opacity: 0;
-  animation: logoReveal 1.4s ease forwards;
+  transform: scale(0.6);
+
+  animation: logoEnter 1.4s ease forwards, gradientFlow 4s linear infinite;
 }
 
-/* Text fade under logo */
-.boot-text {
-  margin-top: 10px;
-  opacity: 0;
-  animation: textFade 1s ease forwards;
-  animation-delay: 0.8s;
-}
-
-/* Glow + zoom animation */
-@keyframes logoReveal {
+/* ✨ LOGO ANIMATION */
+@keyframes logoEnter {
   0% {
-    transform: scale(0.3);
     opacity: 0;
-    filter: drop-shadow(0 0 0 rgba(79,123,255,0));
+    transform: scale(0.6);
+    filter: blur(10px);
   }
-  50% {
+  60% {
     opacity: 1;
-    transform: scale(1.2);
-    filter: drop-shadow(0 0 25px rgba(79,123,255,0.8));
+    transform: scale(1.1);
+    filter: blur(0);
   }
   100% {
     transform: scale(1);
     opacity: 1;
-    filter: drop-shadow(0 0 15px rgba(79,123,255,0.6));
   }
 }
 
-/* text appears after logo */
-@keyframes textFade {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-.logo {
-  animation: logoReveal 1.4s ease forwards, glowPulse 2s infinite ease-in-out;
+@keyframes gradientFlow {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
 }
 
-@keyframes glowPulse {
-  0%, 100% {
-    filter: drop-shadow(0 0 10px rgba(79,123,255,0.4));
-  }
-  50% {
-    filter: drop-shadow(0 0 25px rgba(79,123,255,0.9));
-  }
-}
+/* 🌌 BACKGROUND */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   color: white;
 
-  /* 🌈 Improved animated gradient */
   background: linear-gradient(-45deg, #0a0a14, #12122a, #16213e, #0f3460, #0a0a14);
   background-size: 500% 500%;
   animation: gradientMove 18s ease infinite;
-}
-
-/* 🌌 Soft center glow */
-body::before {
-  content: "";
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 600px;
-  height: 600px;
-  transform: translate(-50%, -50%);
-
-  background: radial-gradient(circle, rgba(80,120,255,0.25), transparent 70%);
-  filter: blur(80px);
-
-  z-index: -1;
-  pointer-events: none;
-}
-
-/* ✨ Subtle texture */
-body::after {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-  background: url("https://www.transparenttextures.com/patterns/noise.png");
-  opacity: 0.05;
-
-  z-index: -1;
-  pointer-events: none;
-}
-
-/* Title */
-.title {
-  padding: 20px;
-  font-size: 32px;
-  text-align: left;
-}
-
-/* Container */
-#music-container {
-  display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  padding: 30px;
-  scroll-behavior: smooth;
-  align-items: flex-start;
-
-  scrollbar-width: none;
-}
-
-/* 🎵 Card */
-.card {
-  min-width: 180px;
-  flex-shrink: 0;
-  text-align: left;
-
-  background: linear-gradient(145deg, #121212, #1a1a2e);
-  border-radius: 12px;
-  padding: 12px;
-  cursor: pointer;
-
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-  will-change: transform;
-
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-
-  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
-}
-
-.card:hover {
-  transform: translateY(-6px);
-
-  background: linear-gradient(145deg, #1a1a2e, #16213e);
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,0.8),
-    0 0 10px rgba(133, 24, 241, 0.4),
-    0 0 25px rgba(43, 53, 199, 0.2);
-}
-
-.card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
-
-.card h3 {
-  font-size: 15px;
-  margin: 6px 0 2px;
-}
-
-.card p {
-  font-size: 13px;
-  color: #ffffff;
-  margin: 0;
-}
-
-.card span {
-  font-size: 12px;
-  color: #ff0000;
-}
-
-/* 🌌 Player */
-#player {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-  background: radial-gradient(circle, #0f0f1a, #000);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  z-index: 1000;
 
   opacity: 0;
-  transform: scale(1.05);
-  pointer-events: none;
-
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transform: translateY(20px);
+  transition: 0.8s ease;
 }
 
-#player.active {
+body.loaded {
   opacity: 1;
-  transform: scale(1);
-  pointer-events: all;
-}
-
-.hidden {
-  display: none;
-}
-
-/* 🎯 Player content (FINAL tuned position) */
-.player-content {
-  text-align: center;
-  position: relative;
-
-  transform: translateY(10px); /* 👈 perfect balance */
-  opacity: 0;
-
-  transition: transform 0.4s ease, opacity 0.4s ease;
-}
-
-#player.active .player-content {
   transform: translateY(0);
-  opacity: 1;
 }
 
-/* Close button */
-#close {
-  position: absolute;
-  top: -10px;
-  right: -20px;
-  font-size: 30px;
-  cursor: pointer;
-  color: #ccc;
-}
-
-#close:hover {
-  color: white;
-}
-
-/* 🌈 Gradient animation */
 @keyframes gradientMove {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
 
-/* 🎶 Equalizer */
-.equalizer {
-  height: 40px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 5px;
-  margin: 15px 0;
-
-  opacity: 0.3;
-  transition: opacity 0.3s ease;
-}
-
-#player.active .equalizer {
-  opacity: 1;
-}
-
-.equalizer span {
-  width: 5px;
-  height: 10px;
-  background: #4f7bff;
-  border-radius: 3px;
-  animation: bounce 1s infinite ease-in-out;
-
-  box-shadow: 0 0 10px currentColor;
-}
-
-.equalizer span:nth-child(1) { animation-delay: 0s; }
-.equalizer span:nth-child(2) { animation-delay: 0.2s; }
-.equalizer span:nth-child(3) { animation-delay: 0.4s; }
-.equalizer span:nth-child(4) { animation-delay: 0.2s; }
-.equalizer span:nth-child(5) { animation-delay: 0s; }
-
-@keyframes bounce {
-  0%, 100% { height: 10px; }
-  50% { height: 35px; }
-}
-
-/* Background blur when player open */
-body.player-open #music-container {
-  filter: blur(6px) brightness(0.6);
-  transition: filter 0.4s ease;
-}
-
-body.player-open .card {
-  pointer-events: none;
-}
-/* 📰 News Section */
-.news-section {
-  padding: 40px;
-  text-align: left;
-}
-
-.news-section h2 {
-  font-size: 26px;
-  margin-bottom: 20px;
-}
-
-/* News card */
-/* 📰 Side-by-side news layout */
-.news-card {
-  max-width: 800px;
-  padding: 20px;
-  border-radius: 16px;
-
-  display: flex;
-  flex-direction: row;   /* ensures left + right layout */
-  gap: 20px;
-  align-items: stretch;  /* makes both equal height */
-
-  background: linear-gradient(145deg, #121212, #1a1a2e);
-  border: 1px solid rgba(255,255,255,0.08);
-  backdrop-filter: blur(10px);
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,0.7),
-    0 0 15px rgba(80,120,255,0.2);
-}
-
-/* left side (article) */
-.news-content {
-  flex: 1;
-}
-
-/* right side (image) */
-.news-img {
-  width: 220px;
-  height: auto;
-  align-self: stretch;   /* makes it match full height */
-  object-fit: cover;
-  border-radius: 12px;
-}
-
-/* highlight text */
-.news-highlight {
-  margin-top: 10px;
-  color: #4f7bff;
-  font-weight: bold;
-}
-.news-card:hover {
-  transform: translateY(-5px);
-
-  box-shadow:
-    0 15px 40px rgba(0,0,0,0.9),
-    0 0 25px rgba(120,180,255,0.3);
-}
-
-.news-card h3 {
-  margin-bottom: 10px;
-}
-
-.news-card p {
-  color: #b3b3b3;
-  line-height: 1.6;
-}
-
-/* Highlight line */
-.news-highlight {
-  margin-top: 10px;
-  color: #4f7bff;
-  font-weight: bold;
-}
-.news-img {
-  width: 100%;
-  border-radius: 12px;
-  margin-bottom: 15px;
-}
-/* Sections */
-.section {
-  padding: 20px 30px;
-}
-
-.section h2 {
-  margin-bottom: 15px;
-  font-size: 22px;
-}
-
-/* Horizontal rows like Spotify */
-.row {
-  display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-
-  scrollbar-width: none;
-}
-.row::-webkit-scrollbar {
-  display: none;
-}
-/* 🎧 Section spacing upgrade */
-.section {
-  padding: 10px 30px 30px;
-}
-
-.section h2 {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 12px;
-  color: #e5e5e5;
-}
-
-/* 🎯 Row scroll feel (smoother like Spotify) */
-.row {
-  scroll-behavior: smooth;
-  padding-bottom: 10px;
-}
-
-/* 🎴 Add play button overlay */
-.card {
-  position: relative;
-}
-
-/* Play button */
-.card::after {
-  content: "▶";
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-
-  background: #4f7bff;
-  color: white;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 16px;
-  opacity: 0;
-  transform: translateY(10px);
-
-  transition: 0.3s ease;
-}
-
-/* Show button on hover */
-.card:hover::after {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* 🎨 Card hover focus effect (others fade slightly) */
-/* 🎴 Hover effect (clean version, no blur) */
-.row:hover .card {
-  opacity: 0.85;
-  transform: scale(0.98);
-  transition: 0.25s ease;
-}
-
-.row .card:hover {
-  opacity: 1;
-  transform: scale(1.03);
-}
-
-/* 🎧 Image hover zoom (subtle) */
-.card img {
-  transition: transform 0.3s ease;
-}
-
-.card:hover img {
-  transform: scale(1.05);
-}
-
-/* ✨ Smooth text fade-in */
-.card h3,
-.card p,
-.card span {
-  transition: color 0.3s ease;
-}
-
-.card:hover h3 {
-  color: white;
-}
-
-.card:hover p {
-  color: #d1d1d1;
-}
-
-/* 🌌 Stronger depth when hovering sections */
-.section:hover {
-  transform: translateY(-2px);
-  transition: transform 0.3s ease;
-}
-
-/* 🎧 Player backdrop stronger focus */
-body.player-open {
-  overflow: hidden;
-}
-
-/* 🎯 News section spacing improvement */
-.news-section {
-  padding-top: 10px;
-}
-
-/* ✨ Slight glow consistency across UI */
-.card,
-.news-card {
-  box-shadow:
-    0 4px 20px rgba(0,0,0,0.6),
-    0 0 5px rgba(80,120,255,0.1);
-}
-
-/* 🎶 Equalizer smoother animation */
-.equalizer span {
-  transition: background 0.3s ease;
-}
-.card {
-  transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
-}
-/* ⚡ LOADER FULL SCREEN */
+/* ⚡ LOADER */
 #loader {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
+  z-index: 9999;
 
-  background: radial-gradient(circle, #0a0a14, #000);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  z-index: 9999;
-  transition: opacity 0.6s ease;
+  background: radial-gradient(circle, #0a0a14, #000);
 }
 
-/* Fade out */
-#loader.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* Loader content */
-.loader-content {
-  text-align: center;
-}
-
-/* Logo animation */
-.logo {
-  font-size: 32px;
-  margin-bottom: 20px;
-
-  animation: glowPulse 2s infinite alternate;
-}
-
-/* Progress bar */
 .loader-bar {
   width: 200px;
   height: 5px;
   background: rgba(255,255,255,0.1);
+  margin-top: 20px;
   border-radius: 5px;
   overflow: hidden;
 }
@@ -564,33 +97,161 @@ body.player-open {
   width: 0%;
   height: 100%;
   background: #4f7bff;
-
   animation: loadBar 2.5s ease forwards;
 }
 
-/* Glow effect */
-@keyframes glowPulse {
-  from {
-    text-shadow: 0 0 5px #4f7bff;
-  }
-  to {
-    text-shadow: 0 0 20px #4f7bff, 0 0 40px #4f7bff;
-  }
-}
-
-/* Progress animation */
 @keyframes loadBar {
   0% { width: 0%; }
   100% { width: 100%; }
 }
-/* 🚀 Boot animation */
-body {
+
+#loader.hidden {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  pointer-events: none;
+  transition: 0.6s ease;
 }
 
-body.loaded {
+/* 🎵 ROWS (YOUR ORIGINAL LAYOUT BACK) */
+.row {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 20px 30px;
+  scrollbar-width: none;
+}
+.row::-webkit-scrollbar { display: none; }
+
+/* 🎴 CARDS */
+.card {
+  min-width: 180px;
+  padding: 12px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #121212, #1a1a2e);
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Desktop hover */
+.desktop .card:hover {
+  transform: translateY(-6px);
+}
+
+/* ▶ Play button */
+.img-wrap {
+  position: relative;
+}
+
+.play-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+
+  background: #4f7bff;
+  border-radius: 50%;
+  padding: 10px;
+
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.desktop .card:hover .play-btn {
   opacity: 1;
-  transform: translateY(0);
+}
+
+.mobile .play-btn {
+  opacity: 1;
+}
+
+/* 🌌 PLAYER */
+#player {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: radial-gradient(circle, #0f0f1a, #000);
+  z-index: 1000;
+
+  opacity: 0;
+  transform: scale(1.05);
+  pointer-events: none;
+
+  transition: 0.4s ease;
+}
+
+#player.active {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: all;
+}
+
+.player-content img {
+  display: block;
+  margin: 0 auto;
+  width: 300px;
+  border-radius: 20px;
+}
+
+/* 🎧 MINI PLAYER */
+.mini-player {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  background: rgba(0,0,0,0.85);
+  z-index: 900;
+}
+
+body.player-open .mini-player {
+  display: none;
+}
+
+/* 📰 NEWS FIX */
+.news-section {
+  padding: 30px;
+}
+
+.news-card {
+  max-width: 900px;
+  padding: 20px;
+  border-radius: 16px;
+
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  background: linear-gradient(145deg, #121212, #1a1a2e);
+}
+
+.news-content {
+  flex: 1;
+}
+
+.news-img {
+  width: 220px;
+  border-radius: 12px;
+}
+
+/* 📱 MOBILE */
+@media (max-width: 768px) {
+  .card { min-width: 140px; }
+
+  .news-card {
+    flex-direction: column;
+  }
+
+  .news-img {
+    width: 100%;
+  }
 }

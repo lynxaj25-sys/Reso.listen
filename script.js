@@ -1,3 +1,14 @@
+// 🔁 RESPONSIVE DEVICE MODE
+function setDeviceMode() {
+  const isMobile = window.innerWidth <= 768;
+
+  document.body.classList.remove("mobile", "desktop");
+  document.body.classList.add(isMobile ? "mobile" : "desktop");
+}
+setDeviceMode();
+window.addEventListener("resize", setDeviceMode);
+
+
 // 🎵 DATA
 const musicData = [
   { name: "One Dance", artist: "Drake", album: "Views", img: "images/vv.jpg", audio: "audio/One Dance.mpeg.wav" },
@@ -6,7 +17,7 @@ const musicData = [
   { name: "TV Off", artist: "Kendrick Lamar", album: "GNX", img: "images/download.jpg", audio: "audio/TV Off.mpeg.wav" },
   { name: "Luther", artist: "Kendrick Lamar, ft. SZA", album: "GNX", img: "images/download.jpg", audio: "audio/Luther.mpeg.wav" },
 
-  { name: "Starboy", artist: "The Weeknd, ft. Daft Punk", album: "Starboy",img: "images/sar.jpg", audio: "audio/Wekend.mp3" },
+  { name: "Starboy", artist: "The Weeknd, ft. Daft Punk", album: "Starboy", img: "images/sar.jpg", audio: "audio/Wekend.mp3" },
   { name: "Given Up On Me", artist: "The Weeknd", album: "Hurry Up Tomorrow", img: "images/hut.jpg", audio: "audio/Giv.mp3" },
 
   { name: "Too Little Too Late", artist: "Laufey", album: "Bewitched", img: "images/be.jpg", audio: "audio/Too Little Too Late.mpeg.wav" },
@@ -17,26 +28,29 @@ const musicData = [
 
   { name: "Phantom", artist: "esdeekid, ft. Rico Ace", album: "Rebel", img: "images/cm.png", audio: "audio/Phantom.wav" },
   { name: "Cali Man", artist: "esdeekid, ft. Rico Ace", album: "Rebel", img: "images/cm.png", audio: "audio/Cali Man.mpeg.wav" }
-  ];
+];
+
 
 // 🎯 ELEMENTS
 const player = document.getElementById("player");
 const audio = document.getElementById("audio");
 
+const container = document.getElementById("music-container"); // old row
 const recentContainer = document.getElementById("recent-container");
 const trendingContainer = document.getElementById("trending-container");
 const newContainer = document.getElementById("new-container");
 
 const equalizer = document.querySelector(".equalizer");
+const mini = document.getElementById("mini-player");
 
-// 🎨 GET AVERAGE COLOR FROM IMAGE
+
+// 🎨 COLOR PICK
 function getAverageColor(img) {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
 
   canvas.width = img.width;
   canvas.height = img.height;
-
   ctx.drawImage(img, 0, 0);
 
   const data = ctx.getImageData(0, 0, img.width, img.height).data;
@@ -53,68 +67,86 @@ function getAverageColor(img) {
   return `rgb(${Math.floor(r/count)}, ${Math.floor(g/count)}, ${Math.floor(b/count)})`;
 }
 
+
+// 🎵 PLAY FUNCTION
+function playSong(song) {
+  player.classList.remove("hidden");
+  setTimeout(() => player.classList.add("active"), 10);
+
+  document.body.classList.add("player-open");
+
+  document.getElementById("player-img").src = song.img;
+  document.getElementById("player-title").innerText = song.name;
+  document.getElementById("player-artist").innerText = song.artist;
+  document.getElementById("player-album").innerText = song.album;
+
+  audio.src = song.audio;
+  audio.play();
+
+  // MINI PLAYER
+  document.getElementById("mini-img").src = song.img;
+  document.getElementById("mini-title").innerText = song.name;
+  document.getElementById("mini-artist").innerText = song.artist;
+  mini.classList.remove("hidden");
+
+  // COLOR SYNC
+  const img = new Image();
+  img.crossOrigin = "anonymous";
+  img.src = song.img;
+
+  img.onload = () => {
+    const color = getAverageColor(img);
+    document.querySelectorAll(".equalizer span").forEach(bar => {
+      bar.style.background = color;
+    });
+  };
+}
+
+
 // 🎴 CREATE CARD
 function createCard(song) {
   const card = document.createElement("div");
   card.classList.add("card");
 
   card.innerHTML = `
-    <img src="${song.img}">
-    <div class="info">
-      <h3>${song.name}</h3>
-      <p>${song.artist}</p>
-      <span>${song.album}</span>
+    <div class="img-wrap">
+      <img src="${song.img}">
+      <div class="play-btn">▶</div>
     </div>
+    <h3>${song.name}</h3>
+    <p>${song.artist}</p>
   `;
 
-  card.addEventListener("click", () => {
-    // OPEN PLAYER
-    player.classList.remove("hidden");
+  const playBtn = card.querySelector(".play-btn");
 
-    setTimeout(() => {
-      player.classList.add("active");
-    }, 10);
+  function handlePlay(e) {
+    e?.stopPropagation();
+    playSong(song);
+  }
 
-    document.body.classList.add("player-open");
+  playBtn.onclick = handlePlay;
 
-    // UPDATE CONTENT
-    document.getElementById("player-img").src = song.img;
-    document.getElementById("player-title").innerText = song.name;
-    document.getElementById("player-artist").innerText = song.artist;
-    document.getElementById("player-album").innerText = song.album;
-
-    audio.src = song.audio;
-    audio.play();
-
-    // 🎨 COLOR SYNC
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.src = song.img;
-
-    img.onload = () => {
-      const color = getAverageColor(img);
-
-      document.querySelectorAll(".equalizer span").forEach(bar => {
-        bar.style.background = color;
-      });
-    };
-  });
+  card.onclick = () => {
+    if (document.body.classList.contains("desktop")) {
+      handlePlay();
+    }
+  };
 
   return card;
 }
 
-// 📦 DISTRIBUTE SONGS INTO SECTIONS
+
+// 📦 RENDER SONGS
 musicData.forEach((song, index) => {
   const card = createCard(song);
 
-  if (index < 4) {
-    recentContainer.appendChild(card);
-  } else if (index < 8) {
-    trendingContainer.appendChild(card);
-  } else {
-    newContainer.appendChild(card);
-  }
+  if (container) container.appendChild(card.cloneNode(true));
+
+  if (index < 4) recentContainer.appendChild(card);
+  else if (index < 8) trendingContainer.appendChild(card);
+  else newContainer.appendChild(card);
 });
+
 
 // ❌ CLOSE PLAYER
 document.getElementById("close").addEventListener("click", () => {
@@ -125,25 +157,71 @@ document.getElementById("close").addEventListener("click", () => {
   }, 400);
 
   document.body.classList.remove("player-open");
-
   audio.pause();
 });
 
-// 🎶 EQUALIZER VISIBILITY
+
+// 🎶 MINI PLAYER
+document.getElementById("mini-play").onclick = () => {
+  if (audio.paused) audio.play();
+  else audio.pause();
+};
+
+
+// 🎶 EQUALIZER
 audio.addEventListener("play", () => {
   equalizer.style.opacity = "1";
 });
-
 audio.addEventListener("pause", () => {
   equalizer.style.opacity = "0.3";
 });
-// ⚡ LOADING + BOOT SEQUENCE
+
+
+// ⚡ LOADER + INTRO FIX (MAIN CHANGE)
 window.addEventListener("load", () => {
   const loader = document.getElementById("loader");
+  const intro = document.getElementById("logo-intro");
 
+  // hide loader
   setTimeout(() => {
     loader.classList.add("hidden");
-
     document.body.classList.add("loaded");
-  }, 2500); // matches loading bar
+  }, 2000);
+
+  // hide intro AFTER loader
+  setTimeout(() => {
+    intro.classList.add("hide");
+  }, 4000);
 });
+
+
+// 🌌 PARTICLES
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = Array.from({ length: 50 }, () => ({
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  r: Math.random() * 2
+}));
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  particles.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = "white";
+    ctx.fill();
+
+    p.y -= 0.2;
+    if (p.y < 0) p.y = canvas.height;
+  });
+
+  requestAnimationFrame(draw);
+}
+
+draw();
